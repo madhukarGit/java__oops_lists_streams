@@ -67,10 +67,10 @@ public class MainCollections {
         * concurrent modification exception
         * */
 
-        List<String> removalNames = new ArrayList<>();
-        removalNames.add("Robert");
-        removalNames.add("Steve");
-        removalNames.add("Kendra");
+        List<String> removalNames = List.of("Robert");
+//        removalNames.add("Robert");
+//        removalNames.add("Steve");
+//        removalNames.add("Kendra");
 
         for(Iterator<Employee> it = employeeList.iterator(); it.hasNext();){
             Employee employee = it.next();
