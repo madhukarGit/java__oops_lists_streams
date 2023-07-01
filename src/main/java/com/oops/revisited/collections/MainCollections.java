@@ -6,6 +6,8 @@ import com.oops.revisited.domain.FlyerPilot;
 import com.oops.revisited.domain.IEmployee;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,12 +45,40 @@ public class MainCollections {
         Matcher matcher = pattern.matcher(people);
 
         int totalSalaries = 0;
-        List<Employee> employeeList = null;
+        List<Employee> employeeList = new ArrayList<>();
         while (matcher.find()){
-            employeeList.add(Employee.createEmployee(matcher.group()));
+            Employee employeeResult = Employee.createEmployee(matcher.group());
+            employeeList.add(employeeResult);
         }
-
+        totalSalaries = employeeList.stream()
+                .map(Employee::getSalary)
+                .reduce(0,(a,b)->a+b);
         NumberFormat currency  = NumberFormat.getCurrencyInstance();
         System.out.println(currency.format(totalSalaries));
+
+        int totalSalariesLoop = 0;
+
+        for(Iterator<Employee> it = employeeList.iterator();it.hasNext();){
+            totalSalariesLoop += it.next().getSalary();
+        }
+        System.out.println(currency.format(totalSalariesLoop));
+
+        /*
+        * concurrent modification exception
+        * */
+
+        List<String> removalNames = new ArrayList<>();
+        removalNames.add("Robert");
+        removalNames.add("Steve");
+        removalNames.add("Kendra");
+
+        for(Iterator<Employee> it = employeeList.iterator(); it.hasNext();){
+            Employee employee = it.next();
+            if(removalNames.contains(employee.getLastName())){
+                it.remove();
+            }
+        }
+
+        employeeList.forEach(System.out::println);
     }
 }

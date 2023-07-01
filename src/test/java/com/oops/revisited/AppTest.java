@@ -36,3 +36,13 @@ public class AppTest
         assertTrue( true );
     }
 }
+
+/*
+* int totalSalaries = 0;
+        List<Employee> employeeList = null;
+        while (matcher.find()){
+            employeeList.add(Employee.createEmployee(matcher.group()));
+        }
+        for(Iterator<Employee> it = employeeList.listIterator();it.hasNext();){
+            totalSalaries += it.next().getSalary();
+        }*/
